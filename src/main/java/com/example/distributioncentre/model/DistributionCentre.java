@@ -8,59 +8,35 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 @Data
 @NoArgsConstructor
 @Entity
 @AllArgsConstructor
+@Builder
 public class DistributionCentre {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String item;
-    private int available;
-    private int longitude;
-    private int latitude;
-  
-    public static class DistributionCentreBuilder {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int id;
+    
+        @NotBlank
         private String name;
-        private String item;
+    
+        @NotBlank
+        private String latitude;
+    
+        @NotBlank
+        private String longitude;
+
         private int available;
-        private int longitude;
-        private int latitude;
-
-        public DistributionCentreBuilder name(String name) {
+    
+    
+        public DistributionCentre(String name, String latitude, String longitude, int available) {
             this.name = name;
-            return this;
-        }
-
-        public DistributionCentreBuilder item(String item) {
-            this.item = item;
-            return this;
-        }
-
-        public DistributionCentreBuilder available(int available) {
-            this.available = available;
-            return this;
-        }
-
-        public DistributionCentreBuilder longitude(int longitude) {
-            this.longitude = longitude;
-            return this;
-        }
-
-        public DistributionCentreBuilder latitude(int latitude) {
             this.latitude = latitude;
-            return this;
+            this.longitude = longitude;
+            this.available = available;
         }
-
-      public DistributionCentre build() {
-    return new DistributionCentre(null, name, item, available, longitude, latitude);
-}
     }
-
-    public static DistributionCentreBuilder builder() {
-        return new DistributionCentreBuilder();
-    }
-}
